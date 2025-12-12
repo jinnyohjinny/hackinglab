@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Analytics Platform</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div id="loginScreen" class="login-container">
+        <div class="login-box fade-in">
+            <h1>🔐 Data Analytics Platform</h1>
+            <p>Enterprise-grade data processing and analytics</p>
+            
+            <div id="loginAlert" class="hidden"></div>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required autocomplete="username">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required autocomplete="current-password">
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Sign In</button>
+            </form>
+            
+            <p style="margin-top: 1.5rem; font-size: 0.85rem; color: var(--text-muted);">
+                Demo accounts: admin/admin123, analyst/analyst456, demo/demo789
+            </p>
+        </div>
+    </div>
+
+    <div id="dashboardScreen" class="hidden">
+        <div class="container">
+            <div class="header">
+                <h1>📊 Data Analytics Platform</h1>
+                <div class="user-info">
+                    <span class="user-badge">👤 <span id="currentUser"></span></span>
+                    <button id="logoutBtn" class="btn btn-secondary">Logout</button>
+                </div>
+            </div>
+
+            <div class="dashboard">
+                <div class="card">
+                    <div class="card-icon">📈</div>
+                    <h3>Total Queries</h3>
+                    <div class="stat-value" id="totalQueries">-</div>
+                    <div class="stat-label">Last 30 days</div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">👥</div>
+                    <h3>Active Users</h3>
+                    <div class="stat-value" id="activeUsers">-</div>
+                    <div class="stat-label">Currently online</div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">⚡</div>
+                    <h3>Avg Response</h3>
+                    <div class="stat-value" id="avgResponse">-</div>
+                    <div class="stat-label">Milliseconds</div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">✓</div>
+                    <h3>Success Rate</h3>
+                    <div class="stat-value" id="successRate">-</div>
+                    <div class="stat-label">Query completion</div>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="section">
+                    <h2>📁 Data Upload</h2>
+                    <div class="file-upload" id="fileUploadArea">
+                        <div class="upload-icon">📤</div>
+                        <p>Click to upload or drag and drop</p>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">
+                            CSV, JSON, XML files supported
+                        </p>
+                        <input type="file" id="fileInput" accept=".csv,.json,.xml">
+                    </div>
+                    <div id="uploadAlert" class="hidden" style="margin-top: 1rem;"></div>
+                </div>
+
+                <div class="section">
+                    <h2>🔍 Query Builder</h2>
+                    <form id="queryForm">
+                        <div class="form-group">
+                            <label for="queryInput">Enter your query</label>
+                            <textarea id="queryInput" placeholder="SELECT * FROM analytics WHERE..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Execute Query</button>
+                    </form>
+                    <div id="queryAlert" class="hidden" style="margin-top: 1rem;"></div>
+                    <div id="queryResults" class="result-box hidden"></div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>📋 Activity Logs</h2>
+                <div class="logs-container" id="logsContainer">
+                    <p style="color: var(--text-muted);">Loading logs...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/app.js"></script>
+</body>
+</html>

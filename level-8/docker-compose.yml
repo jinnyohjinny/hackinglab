@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - RACK_ENV=production
+      - SESSION_SECRET=change_this_in_production_please
+    restart: unless-stopped
