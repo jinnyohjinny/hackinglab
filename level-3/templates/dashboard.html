@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title">Welcome, {{ user.username }}!</h2>
+                <p class="lead">This is your secure user dashboard.</p>
+                <hr>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card bg-light">
+                            <div class="card-body text-center">
+                                <h5>Account Status</h5>
+                                <p class="mb-0">Active</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card bg-light">
+                            <div class="card-body text-center">
+                                <h5>Role</h5>
+                                <p class="mb-0">
+                                    {% if user.admin %}
+                                    <span class="badge bg-danger">Administrator</span>
+                                    {% else %}
+                                    <span class="badge bg-primary">Standard User</span>
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

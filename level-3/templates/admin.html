@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block title %}Admin Panel{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card border-danger">
+            <div class="card-header bg-danger text-white">
+                <h3 class="mb-0">⚠️ Restricted Area: Admin Panel</h3>
+            </div>
+            <div class="card-body text-center py-5">
+                <h1 class="display-1">🔒</h1>
+                <h2 class="mb-4">Welcome, Administrator!</h2>
+                <p class="lead">You have successfully accessed the protected administrative controls.</p>
+                <div class="alert alert-success mt-4">
+                    <strong>CTF Flag:</strong> FLAG{MASS_ASSIGNMENT_VULN_SUCCESS}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

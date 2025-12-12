@@ -1,0 +1,7 @@
+services:
+  level-3:
+    build: .
+    ports:
+      - "5003:5000"
+    container_name: level-3-app
+    restart: always
