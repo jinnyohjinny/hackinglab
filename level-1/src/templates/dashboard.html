@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - SecureApp</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">SecureApp</div>
+            <nav>
+                <a href="{{ url_for('dashboard') }}">Dashboard</a>
+                <a href="{{ url_for('logout') }}">Logout</a>
+            </nav>
+        </div>
+    </header>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="flash-messages">
+        {% for category, message in messages %}
+        <div class="flash {{ category }}">
+            <span>{{ message }}</span>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <div class="dashboard-container">
+        <div class="welcome-section">
+            <h1>Welcome, {{ user.username }}!</h1>
+            <p>You're logged in and ready to go.</p>
+        </div>
+
+        <div class="card-grid">
+            <div class="card">
+                <h3>Account Information</h3>
+                <p><strong>Username:</strong> {{ user.username }}</p>
+                <p><strong>Email:</strong> {{ user.email }}</p>
+                <p><strong>Member Since:</strong> {{ user.created_at.strftime('%B %d, %Y') }}</p>
+            </div>
+
+            <div class="card">
+                <h3>Account Status</h3>
+                <p>Your account is active and in good standing.</p>
+                <div class="value">✓ Active</div>
+            </div>
+
+            <div class="card">
+                <h3>Security</h3>
+                <p>Your session is secured with encrypted authentication.</p>
+                <div class="value">🔒 Secure</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Quick Actions</h3>
+            <p>Manage your account settings and preferences.</p>
+            <div style="margin-top: 1rem;">
+                <a href="{{ url_for('logout') }}" class="btn-secondary">Sign Out</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

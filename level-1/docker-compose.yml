@@ -1,0 +1,12 @@
+services:
+  web:
+    build: .
+    container_name: secureapp
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./data:/app/data
+    environment:
+      - FLASK_APP=app.py
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped

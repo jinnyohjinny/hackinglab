@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - SecureApp</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">SecureApp</div>
+            <nav>
+                <a href="{{ url_for('dashboard') }}">Dashboard</a>
+                <a href="{{ url_for('admin') }}">Admin Panel</a>
+                <a href="{{ url_for('logout') }}">Logout</a>
+            </nav>
+        </div>
+    </header>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="flash-messages">
+        {% for category, message in messages %}
+        <div class="flash {{ category }}">
+            <span>{{ message }}</span>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <div class="dashboard-container">
+        <div class="admin-header">
+            <h1>Admin Panel</h1>
+        </div>
+
+        <div class="card-grid">
+            <div class="card">
+                <h3>Total Users</h3>
+                <div class="value">{{ users|length }}</div>
+            </div>
+
+            <div class="card">
+                <h3>System Status</h3>
+                <div class="value">🟢 Online</div>
+            </div>
+
+            <div class="card">
+                <h3>Security Level</h3>
+                <div class="value">🔒 High</div>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <h2 style="margin-bottom: 1.5rem;">User Management</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Joined</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>
+                            {% if user.username == 'admin' %}
+                            <span class="badge admin">Admin</span>
+                            {% else %}
+                            <span class="badge user">User</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ user.created_at.strftime('%Y-%m-%d') }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card" style="margin-top: 2rem;">
+            <h3>Admin Privileges</h3>
+            <p>You have full access to all system features and user management capabilities. This area contains
+                sensitive information and should only be accessed by authorized administrators.</p>
+        </div>
+    </div>
+</body>
+
+</html>
