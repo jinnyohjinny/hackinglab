@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block title %}Documentation - CloudCode Analyzer{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card sticky-top" style="top: 20px;">
+                <div class="card-header bg-primary text-white">
+                    <h6 class="mb-0">Contents</h6>
+                </div>
+                <div class="list-group list-group-flush">
+                    <a href="#getting-started" class="list-group-item list-group-item-action">Getting Started</a>
+                    <a href="#api-reference" class="list-group-item list-group-item-action">API Reference</a>
+                    <a href="#examples" class="list-group-item list-group-item-action">Examples</a>
+                    <a href="#best-practices" class="list-group-item list-group-item-action">Best Practices</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-9">
+            <h2 class="fw-bold mb-4">Documentation</h2>
+
+            <section id="getting-started" class="mb-5">
+                <h3>Getting Started</h3>
+                <p>CloudCode Analyzer provides advanced static analysis for Python code, helping you identify security
+                    vulnerabilities and code quality issues.</p>
+
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <h5>Quick Start</h5>
+                        <ol>
+                            <li>Navigate to the Analyzer page</li>
+                            <li>Paste your Python code</li>
+                            <li>Click "Analyze Code"</li>
+                            <li>Review the results and recommendations</li>
+                        </ol>
+                    </div>
+                </div>
+            </section>
+
+            <section id="api-reference" class="mb-5">
+                <h3>API Reference</h3>
+                <p>Use our REST API to integrate code analysis into your CI/CD pipeline.</p>
+
+                <div class="card">
+                    <div class="card-header bg-dark text-white">
+                        <code>POST /api/analyze-python</code>
+                    </div>
+                    <div class="card-body">
+                        <h6>Request Body:</h6>
+                        <pre class="bg-light p-3 rounded"><code>{
+  "code_snippet": "your python code here"
+}</code></pre>
+
+                        <h6 class="mt-3">Response:</h6>
+                        <pre class="bg-light p-3 rounded"><code>{
+  "status": "success",
+  "result": "Analysis complete: ...",
+  "patterns_detected": ["standard_python_syntax"],
+  "risk_level": "low"
+}</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section id="examples" class="mb-5">
+                <h3>Examples</h3>
+
+                <h5>Example 1: Simple Function</h5>
+                <pre class="bg-light p-3 rounded"><code>def calculate_sum(a, b):
+    return a + b
+
+result = calculate_sum(5, 3)</code></pre>
+
+                <h5 class="mt-4">Example 2: List Processing</h5>
+                <pre class="bg-light p-3 rounded"><code>numbers = [1, 2, 3, 4, 5]
+squared = [x**2 for x in numbers]
+print(squared)</code></pre>
+            </section>
+
+            <section id="best-practices" class="mb-5">
+                <h3>Best Practices</h3>
+                <ul>
+                    <li>Always validate user input before processing</li>
+                    <li>Use parameterized queries for database operations</li>
+                    <li>Implement proper error handling</li>
+                    <li>Keep dependencies up to date</li>
+                    <li>Follow the principle of least privilege</li>
+                </ul>
+            </section>
+        </div>
+    </div>
+</div>
+{% endblock %}

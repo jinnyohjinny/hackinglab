@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+
+{% block title %}Code Analyzer - CloudCode Analyzer{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row mb-4">
+        <div class="col">
+            <h2 class="fw-bold">Python Code Security Scanner</h2>
+            <p class="text-muted">Analyze your Python code for security patterns and potential vulnerabilities</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="bi bi-code-square"></i> Code Input</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="codeInput" class="form-label">Enter Python code to analyze:</label>
+                        <textarea class="form-control font-monospace" id="codeInput" rows="12"
+                            placeholder="# Enter your Python code here&#10;def example():&#10;    return 'Hello, World!'"></textarea>
+                        <small class="text-muted">Our advanced static analysis engine will examine your code for
+                            security patterns</small>
+                    </div>
+                    <button type="button" class="btn btn-primary w-100" id="analyzeBtn">
+                        <i class="bi bi-play-circle"></i> Analyze Code
+                    </button>
+                </div>
+            </div>
+
+            <div class="card mt-3">
+                <div class="card-header bg-light">
+                    <h6 class="mb-0"><i class="bi bi-info-circle"></i> Analysis Features</h6>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled mb-0">
+                        <li><i class="bi bi-check-circle text-success"></i> Pattern Recognition</li>
+                        <li><i class="bi bi-check-circle text-success"></i> Security Validation</li>
+                        <li><i class="bi bi-check-circle text-success"></i> Syntax Verification</li>
+                        <li><i class="bi bi-check-circle text-success"></i> Risk Assessment</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0"><i class="bi bi-clipboard-check"></i> Analysis Results</h5>
+                </div>
+                <div class="card-body">
+                    <div id="resultsContainer">
+                        <div class="text-center text-muted py-5">
+                            <i class="bi bi-hourglass-split fs-1"></i>
+                            <p class="mt-3">No analysis performed yet</p>
+                            <small>Submit your code to see results</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mt-3">
+                <div class="card-header bg-light">
+                    <h6 class="mb-0"><i class="bi bi-lightbulb"></i> Example Usage</h6>
+                </div>
+                <div class="card-body">
+                    <p class="mb-2"><strong>Simple function:</strong></p>
+                    <pre class="bg-light p-2 rounded"><code>def greet(name):
+    return f"Hello, {name}"</code></pre>
+                    <p class="mb-2 mt-3"><strong>List comprehension:</strong></p>
+                    <pre class="bg-light p-2 rounded"><code>squares = [x**2 for x in range(10)]</code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('analyzeBtn').addEventListener('click', async function () {
+        const code = document.getElementById('codeInput').value;
+        const resultsContainer = document.getElementById('resultsContainer');
+        const btn = this;
+
+        if (!code.trim()) {
+            resultsContainer.innerHTML = `
+            <div class="alert alert-warning">
+                <i class="bi bi-exclamation-triangle"></i> Please enter some code to analyze
+            </div>
+        `;
+            return;
+        }
+
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Analyzing...';
+
+        resultsContainer.innerHTML = `
+        <div class="text-center py-4">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-3 text-muted">Analyzing code patterns...</p>
+        </div>
+    `;
+
+        try {
+            const response = await fetch('/api/analyze-python', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ code_snippet: code })
+            });
+
+            const data = await response.json();
+
+            if (response.ok && data.status === 'success') {
+                resultsContainer.innerHTML = `
+                <div class="alert alert-success">
+                    <h6><i class="bi bi-check-circle"></i> Analysis Complete</h6>
+                    <hr>
+                    <p class="mb-2"><strong>Result:</strong></p>
+                    <pre class="bg-light p-2 rounded mb-3">${escapeHtml(data.result)}</pre>
+                    <p class="mb-1"><strong>Patterns Detected:</strong> ${data.patterns_detected.join(', ')}</p>
+                    <p class="mb-0"><strong>Risk Level:</strong> <span class="badge bg-${data.risk_level === 'low' ? 'success' : 'warning'}">${data.risk_level.toUpperCase()}</span></p>
+                </div>
+            `;
+            } else {
+                resultsContainer.innerHTML = `
+                <div class="alert alert-danger">
+                    <h6><i class="bi bi-x-circle"></i> Analysis Failed</h6>
+                    <p class="mb-0">${escapeHtml(data.error || 'Unknown error occurred')}</p>
+                </div>
+            `;
+            }
+        } catch (error) {
+            resultsContainer.innerHTML = `
+            <div class="alert alert-danger">
+                <h6><i class="bi bi-x-circle"></i> Error</h6>
+                <p class="mb-0">Failed to connect to analysis service</p>
+            </div>
+        `;
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = '<i class="bi bi-play-circle"></i> Analyze Code';
+        }
+    });
+
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+</script>
+{% endblock %}
