@@ -1,0 +1,9 @@
+services:
+  web:
+    build: .
+    container_name: infomanager-level2
+    ports:
+      - "5000:5000"
+    restart: unless-stopped
+    environment:
+      - FLASK_ENV=production
