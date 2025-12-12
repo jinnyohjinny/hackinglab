@@ -1,0 +1,155 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 40px 30px;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    opacity: 0.95;
+    font-weight: 300;
+}
+
+main {
+    padding: 30px;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+    margin-bottom: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.contacts-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+.contacts-table thead {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.contacts-table th {
+    padding: 16px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.contacts-table th a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    transition: all 0.3s ease;
+}
+
+.contacts-table th a:hover {
+    transform: translateY(-2px);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.contacts-table tbody tr {
+    border-bottom: 1px solid #e0e0e0;
+    transition: all 0.3s ease;
+}
+
+.contacts-table tbody tr:hover {
+    background: linear-gradient(90deg, #f8f9ff 0%, #f0f2ff 100%);
+    transform: scale(1.01);
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);
+}
+
+.contacts-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.contacts-table td {
+    padding: 16px;
+    font-size: 0.95rem;
+}
+
+.name-cell {
+    font-weight: 600;
+    color: #667eea;
+}
+
+.info-box {
+    background: linear-gradient(135deg, #f8f9ff 0%, #f0f2ff 100%);
+    border-left: 4px solid #667eea;
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.info-box p {
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+.info-box strong {
+    color: #667eea;
+}
+
+footer {
+    background: #f8f9fa;
+    padding: 20px;
+    text-align: center;
+    color: #6c757d;
+    font-size: 0.9rem;
+    border-top: 1px solid #e0e0e0;
+}
+
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    .contacts-table th,
+    .contacts-table td {
+        padding: 12px 8px;
+        font-size: 0.85rem;
+    }
+    
+    .info-box {
+        flex-direction: column;
+        gap: 10px;
+    }
+}

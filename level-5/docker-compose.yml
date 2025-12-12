@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: contacts-manager
+    ports:
+      - "8085:80"
+    restart: unless-stopped
+    networks:
+      - contacts-network
+
+networks:
+  contacts-network:
+    driver: bridge
