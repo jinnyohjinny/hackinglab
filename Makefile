@@ -1,4 +1,4 @@
-.PHONY: help start-level stop status list-levels stop-all
+.PHONY: help start-level stop status list-levels stop-all build
 
 # Default target
 help:
@@ -6,12 +6,14 @@ help:
 	@echo "=============================="
 	@echo ""
 	@echo "Usage:"
+	@echo "  make build LEVEL=<number>        - Build Docker image for a specific level"
 	@echo "  make start-level LEVEL=<number>  - Start a specific level (stops other running levels)"
 	@echo "  make stop                        - Stop the currently running level"
 	@echo "  make status                      - Check status of all levels"
 	@echo "  make list-levels                 - List all available levels"
 	@echo ""
 	@echo "Examples:"
+	@echo "  make build LEVEL=1"
 	@echo "  make start-level LEVEL=1"
 	@echo "  make stop"
 	@echo "  make status"
@@ -24,6 +26,27 @@ list-levels:
 			echo "  - $$level"; \
 		fi \
 	done
+
+# Build a specific level's Docker image
+build:
+	@if [ -z "$(LEVEL)" ]; then \
+		echo "Error: LEVEL parameter is required."; \
+		echo "Usage: make build LEVEL=<number>"; \
+		exit 1; \
+	fi
+	@if [ ! -d "level-$(LEVEL)" ]; then \
+		echo "Error: level-$(LEVEL) does not exist."; \
+		echo "Run 'make list-levels' to see available levels."; \
+		exit 1; \
+	fi
+	@if [ ! -f "level-$(LEVEL)/docker-compose.yml" ]; then \
+		echo "Error: level-$(LEVEL)/docker-compose.yml not found."; \
+		exit 1; \
+	fi
+	@echo "Building Docker image for level-$(LEVEL)..."
+	@cd level-$(LEVEL) && docker-compose build
+	@echo ""
+	@echo "✓ Level $(LEVEL) Docker image built successfully!"
 
 # Stop all running levels
 stop-all:
