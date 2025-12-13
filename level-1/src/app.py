@@ -108,6 +108,14 @@ def dashboard():
     """User dashboard - requires authentication."""
     username = get_current_user()
     user = User.query.filter_by(username=username).first()
+    
+    # Ensure user exists in database
+    if not user:
+        response = make_response(redirect(url_for('login')))
+        response.set_cookie('auth_token', '', expires=0)
+        flash('User account not found. Please log in again.', 'error')
+        return response
+    
     return render_template('dashboard.html', user=user)
 
 
@@ -115,6 +123,16 @@ def dashboard():
 @require_admin
 def admin():
     """Admin panel - requires admin privileges."""
+    username = get_current_user()
+    current_user = User.query.filter_by(username=username).first()
+    
+    # Ensure user exists in database
+    if not current_user:
+        response = make_response(redirect(url_for('login')))
+        response.set_cookie('auth_token', '', expires=0)
+        flash('User account not found. Please log in again.', 'error')
+        return response
+    
     users = User.query.all()
     return render_template('admin.html', users=users)
 
